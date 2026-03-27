@@ -39,16 +39,38 @@
   </thead>
   <tbody>
     <tr>
-      <td><input type="checkbox"></td>
+      <td><input type="checkbox" class="todo-checkbox" data-id="hepburn-spa"></td>
       <td>Visit the Hepburn Spa</td>
     </tr>
     <tr>
-      <td><input type="checkbox"></td>
+      <td><input type="checkbox" class="todo-checkbox" data-id="explore-convent"></td>
       <td>Explore the Convent</td>
     </tr>
   </tbody>
 </table>
 </div>
+
+<script>
+  // Load saved checkboxes on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('.todo-checkbox');
+    checkboxes.forEach(checkbox => {
+      const id = checkbox.getAttribute('data-id');
+      const isSaved = localStorage.getItem(id);
+      if (isSaved === 'true') {
+        checkbox.checked = true;
+      }
+    });
+  });
+
+  // Save checkbox state when clicked
+  document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const id = this.getAttribute('data-id');
+      localStorage.setItem(id, this.checked);
+    });
+  });
+</script>
 
 </body>
 </html>
